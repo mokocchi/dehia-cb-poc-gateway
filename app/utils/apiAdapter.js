@@ -3,7 +3,7 @@ var https = require('https')
 var http = require('http')
 
 module.exports = (url, httpsOn = true) => {
-  return axios.create({
+  return axios.create({ 
     baseURL: url,
     timeout: 60000,
     httpsAgent: httpsOn ? (new https.Agent({ keepAlive: true })) : null,
