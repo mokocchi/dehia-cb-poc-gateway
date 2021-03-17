@@ -19,9 +19,10 @@ const authenticateJWT = (req, res, next) => {
                 errorResponse(new Error(`Token expired for user ${user.name}`), res, 403, "Token expired", "Please login again");
             } else {
                 req.user = user;
-                req.token = jwt.sign({
+                const internal_token = jwt.sign({
                     name: user.name
                 }, process.env.JWT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
+                req.headers["authorization"] = `Bearer ${internal_token}`;
                 next();
             }
         });
