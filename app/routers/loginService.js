@@ -28,7 +28,7 @@ router.post('/login', (req, res) => {
         if (result) {
             const lock = new AsyncLock();
 
-            lock.acquire("names", function (done) {
+            lock.acquire("names", (done) => {
                 purgeTaken();
 
                 if (free.length === 0) {
@@ -40,7 +40,7 @@ router.post('/login', (req, res) => {
                 taken.push([take, (new Date()).getMilliseconds()]);
 
                 done(err, ret);
-            }, function (err, ret) {
+            }, (err, ret) => {
                 const accessToken = jwt.sign({
                     name: take
                 }, process.env.JWT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
