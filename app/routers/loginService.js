@@ -58,11 +58,10 @@ router.post('/login', (req, res) => {
         } else {
             errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
         }
-    )).catch(error => {
-            console.log(error);
-            errorResponse("Not a valid user", res, 400, "Invalid login information", "Try again")
-        });
-
+    }).catch(error => {
+        console.log(error);
+        errorResponse("Not a valid user", res, 400, "Invalid login information", "Try again")
+    }));
 });
 
 module.exports = router;
