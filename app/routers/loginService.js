@@ -20,7 +20,7 @@ let taken = [];
 
 const purgeTaken = _ => {
     const released = taken.filter(x => x[1] > ((new Date()).getMilliseconds() + 900000)).map(x => x[0]);
-    taken = released = taken.filter(x => x[1] < ((new Date()).getMilliseconds() + 900000));
+    taken = taken.filter(x => x[1] < ((new Date()).getMilliseconds() + 900000));
     free.concat(released);
 }
 
