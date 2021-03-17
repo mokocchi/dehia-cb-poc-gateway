@@ -39,7 +39,7 @@ router.post('/login', (req, res) => {
                 free = free.filter((item, index) => index != idx);
                 taken.push([take, (new Date()).getMilliseconds()]);
 
-                done(err, ret);
+                done();
             }, (err, ret) => {
                 const accessToken = jwt.sign({
                     name: take
