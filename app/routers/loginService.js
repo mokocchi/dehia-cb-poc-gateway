@@ -19,7 +19,9 @@ let free = cartesian(traits, animals);
 let taken = [];
 
 const purgeTaken = _ => {
-    taken = taken.filter(x => x[1] < ((new Date()).getMilliseconds() + 900000));
+    const released = taken.filter(x => x[1] > ((new Date()).getMilliseconds() + 900000)).map(x => x[0]);
+    taken = released = taken.filter(x => x[1] < ((new Date()).getMilliseconds() + 900000));
+    free.concat(released);
 }
 
 router.post('/login', (req, res) => {
