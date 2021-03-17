@@ -28,7 +28,7 @@ router.post('/login', (req, res) => {
         if (result) {
             const lock = new AsyncLock();
 
-            lock.acquire(key, function (done) {
+            lock.acquire("names", function (done) {
                 purgeTaken();
 
                 if (free.length === 0) {
