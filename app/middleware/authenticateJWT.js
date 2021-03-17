@@ -22,7 +22,7 @@ const authenticateJWT = (req, res, next) => {
                 const internal_token = jwt.sign({
                     name: user.name
                 }, process.env.JWT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
-                req.headers["authorization"] = `Bearer ${internal_token}`;
+                //req.headers["authorization"] = `Bearer ${internal_token}`;
                 next();
             }
         });
