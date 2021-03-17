@@ -51,12 +51,12 @@ router.post('/login', (req, res) => {
                 });
             });
         } else {
-            errorResponse({ message: "Not a valid user" }, res, 400, "Invalid id_token", "Try again")
+            errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
         }
     }
     )).catch(error => {
         console.log(error);
-        errorResponse("Not a valid user", res, 400, "Invalid id_token", "Try again")
+        errorResponse("Not a valid user", res, 400, "Invalid login information", "Try again")
     });
 
 });
