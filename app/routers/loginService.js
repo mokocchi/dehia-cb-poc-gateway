@@ -28,9 +28,9 @@ router.post('/login', (req, res) => {
     const { token } = req.body;
     verify(token).then((result => {
 
-        lock.acquire("names", (done) => {
-            if (result) {
-                const lock = new AsyncLock();
+        if (result) {
+            const lock = new AsyncLock();
+            lock.acquire("names", (done) => {
 
                 purgeTaken();
 
@@ -43,11 +43,7 @@ router.post('/login', (req, res) => {
                 taken.push([take, (new Date()).getMilliseconds()]);
 
                 done(null, take);
-            } else {
-                done();
-            }
-        }).then(take => {
-            if (take) {
+            }).then(take => {
                 const accessToken = jwt.sign({
                     name: take
                 }, process.env.JWT_FRONT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
@@ -55,18 +51,17 @@ router.post('/login', (req, res) => {
                 res.json({
                     accessToken,
                     expires_in: 900000
+                }).catch(error => {
+                    errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
                 });
-            } else {
-                errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
             }
-        }).catch(error => {
+    } else {
             errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
-        });
-    }
+        }
     )).catch(error => {
-        console.log(error);
-        errorResponse("Not a valid user", res, 400, "Invalid login information", "Try again")
-    });
+            console.log(error);
+            errorResponse("Not a valid user", res, 400, "Invalid login information", "Try again")
+        });
 
 });
 
