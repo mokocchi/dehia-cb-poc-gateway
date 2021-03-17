@@ -54,8 +54,8 @@ router.post('/login', (req, res) => {
                 }).catch(error => {
                     errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
                 });
-            }
-    } else {
+            });
+        } else {
             errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
         }
     )).catch(error => {
