@@ -49,7 +49,7 @@ router.post('/login', (req, res) => {
                     accessToken,
                     expires_in: 900000
                 });
-            }, opts);
+            });
         } else {
             errorResponse({ message: "Not a valid user" }, res, 400, "Invalid id_token", "Try again")
         }
