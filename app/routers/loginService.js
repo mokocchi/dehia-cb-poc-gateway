@@ -46,12 +46,12 @@ router.post('/login', (req, res) => {
             } else {
                 done();
             }
-        }, (err, take) => {
-            if(take) {
+        }).then(take => {
+            if (take) {
                 const accessToken = jwt.sign({
                     name: take
                 }, process.env.JWT_FRONT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
-                
+
                 res.json({
                     accessToken,
                     expires_in: 900000
@@ -59,6 +59,8 @@ router.post('/login', (req, res) => {
             } else {
                 errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
             }
+        }).catch(error => {
+            errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
         });
     }
     )).catch(error => {
