@@ -13,18 +13,35 @@ const verify = async (token) => {
 const traits = ["Brave", "Funny", "Peaceful", "Quiet", "Shy"];
 const animals = ["Toucan", "Maned Wolf", "Capibara", "Jaguar", "Llama"];
 const bools = [false];
-const f = (a, b) => [].concat(...a.map(d => b.map(e => [].concat(d, e))));
+const f = (a, b) => [].concat(...a.map(d => b.map(e => `${d} ${e}`)));
 const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
-const pairs = cartesian(traits, animals, bools);
+let free = cartesian(traits, animals);
+let taken = [];
 
-console.log(pairs);
+const purgeTaken = _ =>{
+    taken = taken.filter(x => x[1] < ((new Date()).getMilliseconds() + 900000));
+}
 
 router.post('/login', (req, res) => {
     const { token } = req.body;
     verify(token).then((result => {
         if (result) {
+            const lock = new Lock();
+
+            purgeTaken();
+
+            if (free.length === 0) {
+                errorResponse({ message: "All seats taken!" }, res, 400, "All seats taken! (max users reached)", "All seats taken!")
+            }
+            const idx = Math.round(Math.random() * free.length);
+            const take = free[idx];
+            free = free.filter((item, index) => index != idx);
+            taken.push([take, (new Date()).getMilliseconds()]);
+
+            lock.release();
+
             const accessToken = jwt.sign({
-                name: "Some Name"
+                name: take
             }, process.env.JWT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
 
             res.json({
