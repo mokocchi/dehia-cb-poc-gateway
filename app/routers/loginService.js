@@ -26,7 +26,7 @@ const purgeTaken = _ => {
 
 router.post('/login', (req, res) => {
     const { token } = req.body;
-    verify(token).then((result => {
+    verify(token).then(result => {
 
         if (result) {
             const lock = new AsyncLock();
@@ -61,7 +61,7 @@ router.post('/login', (req, res) => {
     }).catch(error => {
         console.log(error);
         errorResponse("Not a valid user", res, 400, "Invalid login information", "Try again")
-    }));
+    });
 });
 
 module.exports = router;
