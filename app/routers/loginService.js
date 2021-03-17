@@ -27,10 +27,11 @@ const purgeTaken = _ => {
 router.post('/login', (req, res) => {
     const { token } = req.body;
     verify(token).then((result => {
-        if (result) {
-            const lock = new AsyncLock();
 
-            lock.acquire("names", (done) => {
+        lock.acquire("names", (done) => {
+            if (result) {
+                const lock = new AsyncLock();
+
                 purgeTaken();
 
                 if (free.length === 0) {
@@ -42,19 +43,23 @@ router.post('/login', (req, res) => {
                 taken.push([take, (new Date()).getMilliseconds()]);
 
                 done(null, take);
-            }, (err, take) => {
+            } else {
+                done();
+            }
+        }, (err, take) => {
+            if(take) {
                 const accessToken = jwt.sign({
                     name: take
                 }, process.env.JWT_FRONT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
-
+                
                 res.json({
                     accessToken,
                     expires_in: 900000
                 });
-            });
-        } else {
-            errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
-        }
+            } else {
+                errorResponse({ message: "Not a valid user" }, res, 400, "Invalid login information", "Try again")
+            }
+        });
     }
     )).catch(error => {
         console.log(error);
