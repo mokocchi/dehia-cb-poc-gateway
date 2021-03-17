@@ -43,7 +43,7 @@ router.post('/login', (req, res) => {
             }, (err, take) => {
                 const accessToken = jwt.sign({
                     name: take
-                }, process.env.JWT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
+                }, process.env.JWT_FRONT_SECRET, { expiresIn: "15m", algorithm: "HS256" });
 
                 res.json({
                     accessToken,
