@@ -1,6 +1,13 @@
 # DEHIA Circuit Breaker PoC Gateway
-A gateway for a Circuit Breaker Proof-of-Concept using a DEHIA platform simplification
+A gateway for a [Circuit Breaker](https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker) Proof-of-Concept using a DEHIA platform simplification
 
+# Proof of Concept
+The Results Service has a [Circuit Breaker](https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker) that can be enabled *by user* (for testing purposes).
+The Collect Service can be disabled *by user* (again, for testing purposes).
+
+The Results Service asks the Collect Service for the last results. If the Collect Service is "down" (disabled for the user) the request fails.
+
+If the Circuit Breaker is enabled, when the first request fails, the circuit "opens" and another path is taken: the Results Service returns the last cached results instead. For a fixed amount of time (default: 3 minutes) the Results Service doesn't attempt a new request. When the time is up, the circuit "closes" again and requests can be made again.
 ## Installation
 You can install the gateway either in containerized version using Docker or locally (on Linux) using NodeJS.
 ### Docker (recommended)
