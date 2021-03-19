@@ -1,6 +1,21 @@
 # DEHIA Circuit Breaker PoC Gateway
 A gateway for a [Circuit Breaker](https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker) Proof-of-Concept using a DEHIA platform simplification
 
+## Contents
+- [Proof of Concept](#proof-of-concept)
+- [Installation](#installation)
+  - [Docker](#docker-recommended)
+  - [Run locally (Linux)](#run-locally-linux)
+- [Deploying to Heroku](#deploying-to-heroku)
+  - [Prerequisites](#prerequisites)
+  - [Deploy](#deploy)
+- [Environment Variables](#environment-variables)
+- [Endpoints](#endpoints)
+  - [General endpoints](#general-endpoints)
+  - [Collect Service Endpoints](#collect-service-endpoints)
+  - [Results Service Endpoints](#results-service-endpoints)
+- [See Also](#see-also)
+
 ## Proof of Concept
 The Results Service has a [Circuit Breaker](https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker) that can be enabled *by user* (for testing purposes).
 The Collect Service can be disabled *by user* (again, for testing purposes).
@@ -44,13 +59,13 @@ You can install the gateway either in containerized version using Docker or loca
  7. Go to `http://localhost:<env-port>`. You should see an "API Gateway" message.
  8. Now you can add the URL to the frontend or use the gateway with an HTTP client.
 
-# Deploying to Heroku
+## Deploying to Heroku
  You can deploy the dockerized version to Heroku if you want.
- ## Prerequisites
+ ### Prerequisites
  - Having the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed
  - Having a heroku account and room for one more app
 
- ## Deploy
+ ### Deploy
   1. Login in to the Heroku CLI
   ```
   heroku login
@@ -73,7 +88,7 @@ You can install the gateway either in containerized version using Docker or loca
   6. Now you can add the URL to the frontend or use the gateway with an HTTP client.
   
 
-# Environment Variables
+## Environment Variables
 - **API_PREFIX** (default '/api/v1.0'): the prefix for the services' endpoints. Don't change this if you're using the default ones.
 - **JWT_SECRET**: symmetric key for signing the internal tokens (gateway <-> services). It must be the same in the services.
 - **FRONT_SECRET** symmetric key for signing the frontend tokens (frontend<->gateway).
@@ -83,15 +98,15 @@ You can install the gateway either in containerized version using Docker or loca
 
 *If you're using Docker in the services and the gateway at the same time, create a network first (`docker network create <poc-network>`) and then run the other containers. Run `docker network inspect <poc-network>` to get the IP address of the other container and take note. Don't forget to add the port if it's different from Port `80`.
 
-# Endpoints
-## General endpoints
+## Endpoints
+### General endpoints
 - `GET /`: for health check. It only returns the message "API Gateway".
 - `POST /login`: it returns a signed JWT for using the secured endpoints. It currently supports anonymous login only (send `{token: true}`).
-## Collect Service Endpoints
+### Collect Service Endpoints
 - `GET <api-prefix>/collect-status`: it returns `{status: "OK"}` if the Collect service is running normally or `{status: "SUSPENDED"}` if it's disabled for the current user. Secured endpoint*.
 - `POST <api-prefix>/switch`: disables the Collect service for the current user. Secured endpoint*.
 - `DELETE <api-prefix>/switch`: enables the Collect service for the current user. Secured endpoint*.
-## Results Service Endpoints
+### Results Service Endpoints
 - `GET <api-prefix>/results-status`: Returns `{status: "OK"}` if the service is running normally, or an error response if not. Secured endpoint*.
 - `GET <api-prefix>/results`: Returns the current results available, or an error if couldn't reach the collects service. Secured endpoint*.
 - `GET <api-prefix>/circuit-breaker-switch`: Returns `{status: "enabled"}` if the circuit breaker is enabled for the user or `{status:"disabled"}` if it's disabled for the user. Secured endpoint*.
@@ -101,7 +116,7 @@ You can install the gateway either in containerized version using Docker or loca
 
 *Secured endpoint: it needs an `Authorization: Bearer <JWT-token>` header, where `JWT-token` is obtained from `/login`
 
-# See also
+## See also
 - [DEHIA Circuit Breaker PoC Collect Service](https://github.com/mokocchi/dehia-cb-poc-collect)
 - [DEHIA Circuit Breaker PoC Results Service](https://github.com/mokocchi/dehia-cb-poc-results)
 - [DEHIA Circuit Breaker PoC Frontend](https://github.com/mokocchi/dehia-cb-poc-frontend)
