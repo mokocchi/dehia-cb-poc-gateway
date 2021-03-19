@@ -23,7 +23,7 @@ You can install the gateway either in containerized version using Docker or loca
  ```
  node --version
  ```
- 2. Install `yarn` with `npm` or your package manager [https://classic.yarnpkg.com/en/docs/install/#debian-stable]
+ 2. Install `yarn` with `npm` or your package manager https://classic.yarnpkg.com/en/docs/install/#debian-stable
  3. Open a terminal in `./app`
  4. Install dependencies
  ```
@@ -40,7 +40,7 @@ You can install the gateway either in containerized version using Docker or loca
 # Deploying to Heroku
  You can deploy the dockerized version to Heroku if you want.
  ## Prerequisites
- - Having the Heroku cli installed [https://devcenter.heroku.com/articles/heroku-cli]
+ - Having the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed
  - Having a heroku account and room for one more app
 
  ## Deploy
@@ -52,7 +52,7 @@ You can install the gateway either in containerized version using Docker or loca
   ```
   heroku create
   ```
-  3. You can now change the app name if you want at the Heroku [Dashboard][https://dashboard.heroku.com/]
+  3. You can now change the app name if you want at the Heroku [Dashboard](https://dashboard.heroku.com/)
   4. Set the [Environment Variables](#Environment Variables) from the Dashboard
   5. Set the stack to `container`
   ```
@@ -95,6 +95,6 @@ You can install the gateway either in containerized version using Docker or loca
 *Secured endpoint: it needs an `Authorization: Bearer <JWT-token>` header, where `JWT-token` is obtained from `/login`
 
 # See also
-- [DEHIA Circuit Breaker PoC Collect Service][https://github.com/mokocchi/dehia-cb-poc-collect]
-- [DEHIA Circuit Breaker PoC Results Service][https://github.com/mokocchi/dehia-cb-poc-results]
-- [DEHIA Circuit Breaker PoC Frontend][https://github.com/mokocchi/dehia-cb-poc-frontends]
+- [DEHIA Circuit Breaker PoC Collect Service](https://github.com/mokocchi/dehia-cb-poc-collect)
+- [DEHIA Circuit Breaker PoC Results Service](https://github.com/mokocchi/dehia-cb-poc-results)
+- [DEHIA Circuit Breaker PoC Frontend](https://github.com/mokocchi/dehia-cb-poc-frontend)
