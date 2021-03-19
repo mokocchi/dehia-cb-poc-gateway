@@ -1,7 +1,7 @@
 # DEHIA Circuit Breaker PoC Gateway
 A gateway for a [Circuit Breaker](https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker) Proof-of-Concept using a DEHIA platform simplification
 
-# Proof of Concept
+## Proof of Concept
 The Results Service has a [Circuit Breaker](https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker) that can be enabled *by user* (for testing purposes).
 The Collect Service can be disabled *by user* (again, for testing purposes).
 
