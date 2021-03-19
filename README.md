@@ -4,7 +4,7 @@ A gateway for a Circuit Breaker Proof-of-Concept using a DEHIA platform simplifi
 ## Installation
 You can install the gateway either in containerized version using Docker or locally (on Linux) using NodeJS.
 ### Docker (recommended)
- 1. Create a `.env` file based in `.env.dist` (See [Environment Variables](#Environment Variables))
+ 1. Create a `.env` file based in `.env.dist` (See [Environment Variables](#Environment-Variables))
  2. If the services are also run with docker, take note of the docker network.
  3. Build the image: 
 
@@ -29,7 +29,7 @@ You can install the gateway either in containerized version using Docker or loca
  ```
  yarn install
  ```
- 5. Create a `.env` file based in `.env.dist` (See [Environment Variables](#Environment Variables))
+ 5. Create a `.env` file based in `.env.dist` (See [Environment Variables](#Environment-Variables))
  6. Run the gateway
  ```
  node index.js
@@ -53,7 +53,7 @@ You can install the gateway either in containerized version using Docker or loca
   heroku create
   ```
   3. You can now change the app name if you want at the Heroku [Dashboard](https://dashboard.heroku.com/)
-  4. Set the [Environment Variables](#Environment Variables) from the Dashboard
+  4. Set the [Environment Variables](#Environment-Variables) from the Dashboard
   5. Set the stack to `container`
   ```
   heroku stack:set container
