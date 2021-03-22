@@ -84,7 +84,7 @@ You can install the gateway either in containerized version using Docker or loca
   ```
   git push heroku master
   ```
-  7. Go to https://<your-app>.herokuapp.com. You should see an "API Gateway" message.
+  7. Go to `https://<your-app>.herokuapp.com`. You should see an "API Gateway" message.
   6. Now you can add the URL to the frontend or use the gateway with an HTTP client.
   
 
